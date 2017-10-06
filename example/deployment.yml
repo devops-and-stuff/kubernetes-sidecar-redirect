@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta1 # for versions after 1.7.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: redirect-deployment
+  labels:
+    app: redirect
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redirect
+  template:
+    metadata:
+      labels:
+        app: redirect
+    spec:
+      containers:
+      - name: redirect
+        image: devopsandstuff/nginx-sidecar-redirect:stable-alpine
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+      - name: main-app
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80

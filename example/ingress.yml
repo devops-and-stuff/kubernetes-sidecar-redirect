@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: redirect-ingress
+spec:
+  tls:
+    - secretName: your-tls-secret-here
+  backend:
+    serviceName: redirect-service
+    servicePort: 80
